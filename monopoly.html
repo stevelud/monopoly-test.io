@@ -31,6 +31,32 @@
         $(".playerTwoProperties").removeClass("playerTwoPropertiesStyles");
       });
 
+
+      /**
+       *        Triggers for Card Display
+       */
+       let staticNodeListForProperties =
+         [...document.getElementsByClassName('northPropertyTile'),
+          ...document.getElementsByClassName('eastPropertyTile'),
+          ...document.getElementsByClassName('westPropertyTile'),
+          ...document.getElementsByClassName('southPropertyTile')];
+       for (let property of staticNodeListForProperties) {
+         let id = "#" + property.id;
+         $(id).mouseenter(function() {
+           let space = returnPropertyObjectFromIndex(property.id);
+           $("#displayedCard").css("display", "grid");
+           $("#displayedCard-color").css("background-color", space.propertyGroup);
+           $("#displayedCard-empty").html(space.spaceIDAsHTML);
+           // $("#displayedCard-empty").text(board[21].spaceID);  // <- OK: can insert obj props
+         });
+         $(id).mouseleave(function() {
+           $("#displayedCard").css("display", "none");
+           $("#displayedCard-empty").html("");
+         });
+       }
+
+
+
     });
   </script>
 
@@ -61,7 +87,16 @@
         <div class="empty">Illinois<br>Avenue</div>
         <div class="color" style="background-color:red;border-top:1px solid black;"></div>
       </div>
-      <div id="BORailroad" class="tile northPropertyTile northTile"><img src="images/railroad_north.jpeg" alt="Railroad"></div>
+      <div id="BORailroad" class="tile railroadNorthTile northTile">
+        <div class="margin"></div>
+        <div class="image">
+          <img src="images/railroad_north.jpeg" alt="Railroad">
+        </div>
+        <div class="text" style="font-size:.6em;">
+          B & O<br>Railroad
+        </div>
+        <div class="margin"></div>
+      </div>
       <div id="AtlanticAvenue" class="tile northPropertyTile">
         <div class="empty">Atlantic<br>Avenue</div>
         <div class="color" style="background-color:yellow;border-top:1px solid black;"></div>
@@ -70,7 +105,7 @@
         <div class="empty">Ventnor<br>Avenue</div>
         <div class="color" style="background-color:yellow;border-top:1px solid black;"></div>
       </div>
-      <div id="WaterWorks" class="tile northPropertyTile northTile"><img src="images/water_utility.png" alt="Water Utility"></div>
+      <div id="WaterWorks" class="tile northTile"><img src="images/water_utility.png" alt="Water Utility"></div>
       <div id="MarvinGardens" class="tile northPropertyTile">
         <div class="empty">Marvin<br>Gardens</div>
         <div class="color" style="background-color:yellow;border-top:1px solid black;"></div>
@@ -104,7 +139,7 @@
       <div class="nonTile"></div>
       <div class="buttonTile"></div>
       <div class="buttonTile">
-        <button style="width:325%;height:110%;transform:translateX(-50px);font-size:2em;" id="rollButton" onclick="initiateTurn()"><span id="buttonText">ROLL</span></button>
+        <button id="rollButton" onclick="initiateTurn()"><span id="buttonText">ROLL</span></button>
       </div>
       <div class="buttonTile"></div>
       <div class="nonTile"></div>
@@ -134,7 +169,10 @@
       <div class="nonTile"></div>
       <div class="nonTile"></div>
       <div class="displayTile">
-        <div id="displayedCard"></div>
+        <div id="displayedCard">
+          <div id="displayedCard-color"></div>
+          <div id="displayedCard-empty"></div>
+        </div>
       </div>
       <div class="displayTile"></div>
       <div class="displayTile"></div>
@@ -147,7 +185,16 @@
         <div class="empty">Penns-<br>ylvania<br>Avenue</div>
       </div>
 
-      <div id="PennsylvaniaRailroad" class="tile westTile"><img src="images/railroad.jpeg" alt="Railroad"></div>
+      <div id="PennsylvaniaRailroad" class="tile railroadWestTile westTile">
+        <div class="margin"></div>
+        <div class="image">
+          <img src="images/railroad_west.jpeg" alt="Railroad">
+        </div>
+        <div class="text" style="font-size:.6em;">
+          Penns.<br>Railroad
+        </div>
+        <div class="margin"></div>
+      </div>
       <div class="nonTile"></div>
       <div class="nonTile"></div>
       <div class="displayTile"></div>
@@ -157,7 +204,16 @@
       <div class="displayTile"></div>
       <div class="nonTile"></div>
       <div class="nonTile"></div>
-      <div id="ShortLineRailroad" class="tile eastTile"><img src="images/railroad.jpeg" alt="Railroad"></div>
+      <div id="ShortLineRailroad" class="tile railroadEastTile eastTile">
+        <div class="margin"></div>
+        <div class="text" style="font-size:.6em;">
+          ShortLine<br>Railroad
+        </div>
+        <div class="image">
+          <img src="images/railroad_east.jpeg" alt="Railroad">
+        </div>
+        <div class="margin"></div>
+      </div>
 
       <div id="VirginiaAvenue" class="tile westPropertyTile">
         <div class="empty">Virgina<br> Avenue</div>
@@ -192,15 +248,15 @@
         <div class="empty">Park<br>Place</div>
       </div>
 
-      <div id="ElectricCompany" class="tile westPropertyTile westTile"><img src="images/electric_company.jpg" alt="Electric Company"></div>
+      <div id="ElectricCompany" class="tile westTile"><img src="images/electric_company.jpg" alt="Electric Company"></div>
       <div class="nonTile"></div>
+      <div class="buttonTile"></div>
+      <div class="buttonTile"></div>
+      <div class="buttonTile"></div>
       <div class="nonTile"></div>
-      <div class="nonTile"></div>
-      <div class="nonTile"></div>
-      <div class="nonTile"></div>
-      <div class="nonTile"></div>
-      <div class="nonTile"></div>
-      <div class="nonTile"></div>
+      <div class="buttonTile"></div>
+      <div class="buttonTile"></div>
+      <div class="buttonTile"></div>
       <div class="nonTile"></div>
       <div id="LuxuryTax" class="tile eastTile"><img src="images/luxury_tax.png" alt="Luxury Tax"></div>
 
@@ -236,7 +292,16 @@
         <div class="color" style="background-color:lightblue;border-bottom:1px solid black;"></div>
         <div class="empty">Oriental<br>Avenue</div>
       </div>
-      <div id="ReadingRailroad" class="tile southPropertyTile southTile"><img src="images/railroad_south.jpeg" alt="Railroad"></div>
+      <div id="ReadingRailroad" class="tile railroadSouthTile southTile">
+        <div class="margin"></div>
+        <div class="text" style="font-size:.6em;">
+          Reading<br>Railroad
+        </div>
+        <div class="image">
+          <img src="images/railroad_south.jpeg" alt="Railroad">
+        </div>
+        <div class="margin"></div>
+      </div>
       <div id="IncomeTax" class="tile southTile"><img src="images/income_tax.png" alt="Income Tax"></div>
       <div id="BalticAvenue" class="tile southPropertyTile">
         <div class="color" style="background-color:brown;border-bottom:1px solid black;"></div>
@@ -258,15 +323,24 @@
     <div id="controlPanel">
       <div class="playerPanel" id="playerOnePanel">
         <h2>Player One</h2>
-        <p>Cash:<span id="playerOneCash"></span></p>
-        <p>Properties:<span id="playerOneProperties"></span></p>
-
+        <p>Cash: <span id="playerOneCash"></span></p>
+        <hr>
+        <p>Property Value: <span id="playerOnePropertyValue"></span></p>
+        <hr>
+        <p>Net Worth: <span id="playerOneNetWorth"></span></p>
+        <hr>
+        <p>Properties: <span id="playerOneProperties"></span></p>
       </div>
 
       <div class="playerPanel" id="playerTwoPanel">
         <h2>Player Two</h2>
-        <p>Cash:<span id="playerTwoCash"></span></p>
-        <p>Properties:<span id="playerTwoProperties"></span></p>
+        <p>Cash: <span id="playerTwoCash"></span></p>
+        <hr>
+        <p>Property Value: <span id="playerTwoPropertyValue"></span></p>
+        <hr>
+        <p>Net Worth: <span id="playerTwoNetWorth"></span></p>
+        <hr>
+        <p>Properties: <span id="playerTwoProperties"></span></p>
       </div>
     </div>
 
