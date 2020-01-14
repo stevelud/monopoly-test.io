@@ -64,7 +64,7 @@ main {
                             "tile nonTile nonTile displayTile displayTile displayTile displayTile displayTile nonTile nonTile nonTile tile"
 
                             "tile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile tile"
-                            "tile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile tile"
+                            "tile nonTile buttonTile buttonTile buttonTile nonTile buttonTile buttonTile buttonTile nonTile nonTile tile"
                             "tile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile tile"
                            "cornerTile tile tile tile tile tile tile tile tile tile cornerTile";
     }
@@ -104,6 +104,46 @@ main {
     }
     .nonTile {
       background-color:skyblue;
+    }
+
+
+    /**   Railroad Space Styles   **/
+    .railroadNorthTile {
+      background-color: white;
+      display:grid;
+      grid-template-rows:10% 40% 40% 10%;
+      grid-template-columns:100%;
+      grid-template-areas:"margin" "image" "text" "margin";
+    }
+    .railroadNorthTile .text {
+      transform:rotate(180deg);
+    }
+    .railroadSouthTile {
+      background-color: white;
+      display:grid;
+      grid-template-rows:10% 40% 40% 10%;
+      grid-template-columns:100%;
+      grid-template-areas:"margin" "text" "image" "margin";
+    }
+    .railroadWestTile {
+      background-color: white;
+      display:grid;
+      grid-template-columns:10% 40% 40% 10%;
+      grid-template-rows:100%;
+      grid-template-areas:"margin image text margin";
+    }
+    .railroadWestTile .text {
+      transform:rotate(90deg);
+    }
+    .railroadEastTile {
+      background-color: white;
+      display:grid;
+      grid-template-columns:10% 40% 40% 10%;
+      grid-template-rows:100%;
+      grid-template-areas:"margin text image margin";
+    }
+    .railroadEastTile .text {
+      transform:rotate(270deg);
     }
 
 
@@ -164,7 +204,6 @@ main {
       transform: rotate(90deg);
       font-size:.3em;
       text-transform:uppercase;
-
     }
     .northPropertyTile .empty {
       transform: rotate(180deg);
@@ -172,6 +211,12 @@ main {
       text-transform:uppercase;
     }
 
+    #rollButton {
+      width:325%;
+      height:110%;
+      transform:translateX(-50px);
+      font-size:2em;
+    }
 
 /**   Control Panel Styling   **/
 
@@ -208,11 +253,9 @@ main {
   #playerOnePanel:hover {
     border:2px solid red;
   }
-
   #playerTwoPanel:hover {
     border:2px solid blue;
   }
-
 
 
 /**   Miscellaneous Styling   **/
@@ -231,13 +274,30 @@ main {
     background-color:lightgray;
   }
 
+  /*   Displayed card styles:   */
+
   #displayedCard {
     display:none;
-    width:45px;
-    height:75px;
+    width:75px;
+    height:125px;
     border:1px solid black;
-    transform:translate(12px, 8px);
+    font-size:2.3em;
+    transform:translate(4px, 4px);
+    /*display:grid;*/
+    grid-template-rows:25% 75%;
+    grid-template-columns:100%;
+    grid-template-areas:"displayedCard-color" "displayedCard-empty";
+    background-color:white;
   }
+  #displayedCard-color {
+    border-bottom:1px solid black;
+  }
+  #displayedCard-empty {
+    padding-top:0;
+    font-size:.3em;
+    text-transform:uppercase;
+  }
+
 
   /*    Footer Styling    */
   footer {
