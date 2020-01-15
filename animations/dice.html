@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <title>Dice Animation</title>
+   <style>
+    #dice {
+      width:50px;
+      height:50px;
+      background-color:white;
+      border:2px solid black;
+    }
+    #pip_one, #pip_two, #pip_three, #pip_four, #pip_five, #pip_six {
+      background-color:black;
+      width:8px;
+      height:8px;
+      border-radius:4px;
+      position:absolute;
+      /*
+      box-shadow:3px;
+      */
+    }
+
+    /* Dice Roll of One: */
+    #pip_one { transform:translate(20px, 20px); }
+    #pip_two { display:none; }
+    #pip_three { display:none; }
+    #pip_four { display:none; }
+    #pip_five { display:none; }
+    #pip_six { display:none; }
+
+    /* Dice Roll of Two: */
+    /*
+    #pip_one { transform:translate(8px, 8px); }
+    #pip_two { transform:translate(34px, 34px); }
+    #pip_three { display:none; }
+    #pip_four { display:none; }
+    #pip_five { display:none; }
+    #pip_six { display:none; }
+    */
+
+    /* Dice Roll of Three */
+    /*
+    #pip_one { transform:translate(8px, 8px); }
+    #pip_two { transform:translate(34px, 34px); }
+    #pip_three { transform:translate(21px, 21px); }
+    #pip_four { display:none; }
+    #pip_five { display:none; }
+    #pip_six { display:none; }
+    */
+    /* Dice Roll of Four */
+    /*
+    #pip_one { transform:translate(8px, 8px); }
+    #pip_two { transform:translate(34px, 34px); }
+    #pip_three { transform:translate(34px, 8px); }
+    #pip_four { transform:translate(8px, 34px); }
+    #pip_five { display:none; }
+    #pip_six { display:none; }
+    */
+
+    /* Dice Roll of Five */
+    /*
+    #pip_one { transform:translate(8px, 8px); }
+    #pip_two { transform:translate(34px, 34px); }
+    #pip_three { transform:translate(34px, 8px); }
+    #pip_four { transform:translate(8px, 34px); }
+    #pip_five { transform:translate(21px, 21px); }
+    #pip_six { display:none; }
+    */
+
+    /* Dice Roll of Six */
+    /*
+    #pip_one { transform:translate(8px, 8px); }
+    #pip_two { transform:translate(34px, 34px); }
+    #pip_three { transform:translate(34px, 8px); }
+    #pip_four { transform:translate(8px, 34px); }
+    #pip_five { transform:translate(8px, 21px); }
+    #pip_six { transform:translate(34px, 21px); }
+    */
+    button {
+      margin-top:5px;
+      border-radius:3px;
+    }
+   </style>
+
+</head>
+<body>
+    <div id="dice">
+      <div id="pip_one"></div>
+      <div id="pip_two"></div>
+      <div id="pip_three"></div>
+      <div id="pip_four"></div>
+      <div id="pip_five"></div>
+      <div id="pip_six"></div>
+    </div>
+    <button onclick="animateDice(.2)">Click to Animate</button>
+<script>
+    function animateDice(multiplier) {
+      let num1 = document.getElementById("pip_one");
+      let num2 = document.getElementById("pip_two");
+      let num3 = document.getElementById("pip_three");
+      let num4 = document.getElementById("pip_four");
+      let num5 = document.getElementById("pip_five");
+      let num6 = document.getElementById("pip_six");
+      function showSideOne() {
+        num1.style.transform = "translate(20px, 20px)";
+        num2.style.display = "none";
+        num3.style.display = "none";
+        num4.style.display = "none";
+        num5.style.display = "none";
+        num6.style.display = "none";
+      }
+      function showSideTwo() {
+        num1.style.transform = "translate(8px, 8px)";
+        num2.style.display = "block";
+        num2.style.transform = "translate(34px, 34px);";
+        num3.style.display = "none";
+        num4.style.display = "none";
+        num5.style.display = "none";
+        num6.style.display = "none";
+      }
+      function showSideThree() {
+        num1.style.display = "block";
+        num1.style.transform = "translate(8px, 8px)";
+        num2.style.display = "block";
+        num2.style.transform = "translate(34px, 34px)";
+        num3.style.display = "block";
+        num3.style.transform = "translate(21px, 21px)";
+        num4.style.display = "none";
+        num5.style.display = "none";
+        num6.style.display = "none";
+      }
+      function showSideFour() {
+        num1.style.display = "block";
+        num1.style.transform = "translate(8px, 8px)";
+        num2.style.display = "block";
+        num2.style.transform = "translate(34px, 34px)";
+        num3.style.display = "block";
+        num3.style.transform = "translate(34px, 8px)";
+        num4.style.display = "block";
+        num4.style.transform = "translate(8px, 34px)";
+        num5.style.display = "none";
+        num6.style.display = "none";
+      }
+      function showSideFive() {
+        num1.style.display = "block";
+        num1.style.transform = "translate(8px, 8px)";
+        num2.style.display = "block";
+        num2.style.transform = "translate(34px, 34px)";
+        num3.style.display = "block";
+        num3.style.transform = "translate(34px, 8px)";
+        num4.style.display = "block";
+        num4.style.transform = "translate(8px, 34px)";
+        num5.style.display = "block";
+        num5.style.transform = "translate(21px, 21px)";
+        num6.style.display = "none";
+
+      }
+      function showSideSix() {
+        num1.style.display = "block";
+        num1.style.transform = "translate(8px, 8px)";
+        num2.style.display = "block";
+        num2.style.transform = "translate(34px, 34px)";
+        num3.style.display = "block";
+        num3.style.transform = "translate(34px, 8px)";
+        num4.style.display = "block";
+        num4.style.transform = "translate(8px, 34px)";
+        num5.style.display = "block";
+        num5.style.transform = "translate(8px, 21px)";
+        num6.style.display = "block";
+        num6.style.transform = "translate(34px, 21px)";
+      }
+
+      function blinkYellow() {
+        let die = document.getElementById("dice");
+        function setYellow() {
+          die.style.border = "2px solid yellow";
+        }
+        function setBlack() {
+          die.style.border = "2px solid black";
+        }
+        setTimeout(setYellow, 200);
+        setTimeout(setBlack, 400);
+        setTimeout(setYellow, 600);
+        setTimeout(setBlack, 800);
+        setTimeout(setYellow, 1000);
+        setTimeout(setBlack, 1200);
+        setTimeout(setYellow, 1400);
+        setTimeout(setBlack, 1600);
+      }
+
+       setTimeout(showSideOne, multiplier * 500);
+       setTimeout(showSideFive, multiplier * 1000);
+       setTimeout(showSideThree, multiplier * 1500);
+       setTimeout(showSideFour, multiplier * 2000);
+       setTimeout(showSideFive, multiplier * 2500);
+       setTimeout(showSideSix, multiplier * 3000);
+       setTimeout(showSideTwo, multiplier * 3500);
+       setTimeout(showSideFour, multiplier * 4000);
+       setTimeout(showSideFive, multiplier * 4500);
+       setTimeout(showSideSix, multiplier * 5000);
+       setTimeout(showSideOne, multiplier * 5500);
+       setTimeout(showSideFour, multiplier * 6000);
+       setTimeout(showSideThree, multiplier * 6500);
+       setTimeout(showSideOne, multiplier * 7000);
+       setTimeout(showSideTwo, multiplier * 8000);
+       setTimeout(showSideFour, multiplier * 9000);
+       setTimeout(showSideFive, multiplier * 11000);
+       setTimeout(showSideSix, multiplier * 13000);
+       setTimeout(showSideOne, multiplier * 16000);
+       setTimeout(showSideFour, multiplier * 20000);
+
+       // AT THIS POINT: the actual rolled numbers appear
+       // and let the borders blink yellow, say three times
+       setTimeout(blinkYellow, multiplier * 22000);
+    }
+    //animateDice(.2);
+    </script>
+</body>
+
+</html>
