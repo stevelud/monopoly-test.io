@@ -64,7 +64,7 @@ main {
                             "tile nonTile nonTile displayTile displayTile displayTile displayTile displayTile nonTile nonTile nonTile tile"
 
                             "tile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile tile"
-                            "tile nonTile buttonTile buttonTile buttonTile nonTile buttonTile buttonTile buttonTile nonTile nonTile tile"
+                            "tile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile tile"
                             "tile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile tile"
                            "cornerTile tile tile tile tile tile tile tile tile tile cornerTile";
     }
@@ -190,6 +190,7 @@ main {
 
 
 /**   Text transforms for property tiles   **/
+
     .southPropertyTile .empty {
       padding-top:0;
       font-size:.3em;
@@ -218,8 +219,149 @@ main {
       font-size:2em;
     }
 
-/**   Control Panel Styling   **/
+/****   Drop Down Pane Styles:   ****/
 
+   #dropDownPane {
+     width:650px;
+     height:320px;
+     background-color:#85bb65;
+     border:2px solid black;
+     position:absolute;
+     transform:translate(200px, -550px);
+     z-index:2;
+   }
+   #dropDownPaneContent {
+     min-width:610;
+     min-height:280px;
+     margin:20px;
+     background-color:white;
+   }
+   #dropDownPane button {
+     width:100px;
+     height:30px;
+   }
+   .dropDown {
+     animation-name:dropDownDiv;
+     animation-duration:.6s;
+     animation-timing-function:ease-in;
+     animation-iteration-count:1;
+     animation-fill-mode:forwards;
+   }
+   @keyframes dropDownDiv {
+     from { transform:translate(200px, -550px); }
+     to { transform:translate(200px, 150px); }
+   }
+   .goUp {
+     animation-name:goUpDiv;
+     animation-duration:.6s;
+     animation-timing-function: ease-in;
+     animation-iteration-count:1;
+     animation-fill-mode:forwards;
+   }
+   @keyframes goUpDiv {
+     from { transform:translate(200px, 150px); }
+     to { transform:translate(200px, -550px); }
+   }
+
+
+/****   Displayed card styles:   ****/
+
+    #displayedCard {
+      display:none;
+      width:70px;
+      height:115px;
+      border:1px solid black;
+      font-size:2.3em;
+      transform:translate(8px, 8px);
+      /*display:grid;*/
+      grid-template-rows:25% 75%;
+      grid-template-columns:100%;
+      grid-template-areas:"displayedCard-color" "displayedCard-empty";
+      background-color:white;
+    }
+    #displayedCard-color {
+      border-bottom:1px solid black;
+    }
+    #displayedCard-empty {
+      padding-top:0;
+      font-size:.3em;
+      text-transform:uppercase;
+    }
+    #ownerStatusFromDisplayCard {
+      background-color:#85bb65;
+      color:white;
+      display:none;
+      padding:3px;
+      min-width:120px;
+      transform:translateY(28px);
+    }
+    #valueStatusFromDisplayCard {
+      background-color:#85bb65;
+      color:white;
+      display:none;
+      padding:3px;
+      min-width:120px;
+      transform:translateY(12px);
+    }
+
+    #tradeButton, #buyHousesButton, #mortgageButton {
+      font-family:MONOPOLY_INLINE;
+      width:100px;
+      height:50px;
+      font-size:1.1em;
+    }
+    #mortgageButton {
+      transform:translate(-48px, -24px);
+    }
+    #tradeButton {
+      transform:translate(-24px, -24px);
+    }
+    #buyHousesButton {
+      transform:translate(0px, -24px);
+
+    }
+
+/****      Dice Styles      ****/
+
+    #dice_alpha, #dice_beta {
+      display:none;
+      width:50px;
+      height:50px;
+      background-color:white;
+      border:2px solid black;
+      display:none;
+      box-shadow: 5px 5px darkgray;
+    }
+    #dice_alpha {
+      transform:translate(0, 8px);
+    }
+    #dice_beta {
+      transform:translate(22px, 8px);
+    }
+    #pip_alpha_one, #pip_alpha_two, #pip_alpha_three, #pip_alpha_four, #pip_alpha_five, #pip_alpha_six,
+    #pip_beta_one, #pip_beta_two, #pip_beta_three, #pip_beta_four, #pip_beta_five, #pip_beta_six {
+      background-color:black;
+      width:8px;
+      height:8px;
+      border-radius:4px;
+      position:absolute;
+    }
+    /* Dice Roll of One: */
+    #pip_alpha_one { transform:translate(20px, 20px); }
+    #pip_alpha_two { display:none; }
+    #pip_alpha_three { display:none; }
+    #pip_alpha_four { display:none; }
+    #pip_alpha_five { display:none; }
+    #pip_alpha_six { display:none; }
+
+    #pip_beta_one { transform:translate(20px, 20px); }
+    #pip_beta_two { display:none; }
+    #pip_beta_three { display:none; }
+    #pip_beta_four { display:none; }
+    #pip_beta_five { display:none; }
+    #pip_beta_six { display:none; }
+
+/**   Control Panel Styling   **/
 
   #controlPanel {
     font-family:MONOPOLY_INLINE, sans-serif, monospace;
@@ -272,30 +414,6 @@ main {
   button:hover {
     cursor:pointer;
     background-color:lightgray;
-  }
-
-  /*   Displayed card styles:   */
-
-  #displayedCard {
-    display:none;
-    width:75px;
-    height:125px;
-    border:1px solid black;
-    font-size:2.3em;
-    transform:translate(4px, 4px);
-    /*display:grid;*/
-    grid-template-rows:25% 75%;
-    grid-template-columns:100%;
-    grid-template-areas:"displayedCard-color" "displayedCard-empty";
-    background-color:white;
-  }
-  #displayedCard-color {
-    border-bottom:1px solid black;
-  }
-  #displayedCard-empty {
-    padding-top:0;
-    font-size:.3em;
-    text-transform:uppercase;
   }
 
 
