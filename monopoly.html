@@ -31,9 +31,8 @@
         $(".playerTwoProperties").removeClass("playerTwoPropertiesStyles");
       });
 
-
       /**
-       *        Triggers for Card Display
+       *    Triggers for Card Display
        */
        let staticNodeListForProperties =
          [...document.getElementsByClassName('northPropertyTile'),
@@ -47,17 +46,42 @@
            $("#displayedCard").css("display", "grid");
            $("#displayedCard-color").css("background-color", space.propertyGroup);
            $("#displayedCard-empty").html(space.spaceIDAsHTML);
+           $("#ownerStatusFromDisplayCard").css("display", "block");
+           $("#ownerStatusFromDisplayCard").text("Owner: " + space.owner.name);
+           $("#valueStatusFromDisplayCard").css("display", "block");
+           $("#valueStatusFromDisplayCard").text("Value: " + "$" + parseCashValue(space.propertyValue));
            // $("#displayedCard-empty").text(board[21].spaceID);  // <- OK: can insert obj props
          });
          $(id).mouseleave(function() {
            $("#displayedCard").css("display", "none");
            $("#displayedCard-empty").html("");
+           $("#ownerStatusFromDisplayCard").css("display", "none");
+           $("#ownerStatusFromDisplayCard").text("");
+           $("#valueStatusFromDisplayCard").css("display", "none");
+           $("#valueStatusFromDisplayCard").text("");
          });
        }
-
-
-
     });
+    function dropDownTradePane() {
+      let e = document.getElementById("dropDownPane");
+      e.classList.add("dropDown");
+      e.classList.remove("goUp");
+    }
+    function dropDownMortgagePane() {
+      let e = document.getElementById("dropDownPane");
+      e.classList.add("dropDown");
+      e.classList.remove("goUp");
+    }
+    function dropDownBuyHousesPane() {
+      let e = document.getElementById("dropDownPane");
+      e.classList.add("dropDown");
+      e.classList.remove("goUp");
+    }
+    function sendPaneOutOfView() {
+      let e = document.getElementById("dropDownPane");
+      e.classList.remove("dropDown");
+      e.classList.add("goUp");
+    }
   </script>
 
 </head>
@@ -66,6 +90,12 @@
   <header><h1>MONOPOLY!</h1></header>
 
   <main>
+
+    <div id="dropDownPane">
+      <div id="dropDownPaneContent">
+        <button onclick="sendPaneOutOfView()">Clear</button>
+      </div>
+    </div>
 
     <div id="boardWrapper">
 
@@ -175,8 +205,26 @@
         </div>
       </div>
       <div class="displayTile"></div>
-      <div class="displayTile"></div>
-      <div class="displayTile"></div>
+      <div class="displayTile">
+        <div id="dice_alpha">
+          <div id="pip_alpha_one"></div>
+          <div id="pip_alpha_two"></div>
+          <div id="pip_alpha_three"></div>
+          <div id="pip_alpha_four"></div>
+          <div id="pip_alpha_five"></div>
+          <div id="pip_alpha_six"></div>
+        </div>
+      </div>
+      <div class="displayTile">
+        <div id="dice_beta">
+          <div id="pip_beta_one"></div>
+          <div id="pip_beta_two"></div>
+          <div id="pip_beta_three"></div>
+          <div id="pip_beta_four"></div>
+          <div id="pip_beta_five"></div>
+          <div id="pip_beta_six"></div>
+        </div>
+      </div>
       <div class="displayTile"></div>
       <div class="nonTile"></div>
       <div class="nonTile"></div>
@@ -199,7 +247,9 @@
       <div class="nonTile"></div>
       <div class="displayTile"></div>
       <div class="displayTile"></div>
-      <div class="displayTile"></div>
+      <div class="displayTile">
+        <span id="ownerStatusFromDisplayCard"></span>
+      </div>
       <div class="displayTile"></div>
       <div class="displayTile"></div>
       <div class="nonTile"></div>
@@ -223,7 +273,9 @@
       <div class="nonTile"></div>
       <div class="displayTile"></div>
       <div class="displayTile"></div>
-      <div class="displayTile"></div>
+      <div class="displayTile">
+        <span id="valueStatusFromDisplayCard"></span>
+      </div>
       <div class="displayTile"></div>
       <div class="displayTile"></div>
       <div class="nonTile"></div>
@@ -250,13 +302,19 @@
 
       <div id="ElectricCompany" class="tile westTile"><img src="images/electric_company.jpg" alt="Electric Company"></div>
       <div class="nonTile"></div>
-      <div class="buttonTile"></div>
-      <div class="buttonTile"></div>
-      <div class="buttonTile"></div>
       <div class="nonTile"></div>
-      <div class="buttonTile"></div>
-      <div class="buttonTile"></div>
-      <div class="buttonTile"></div>
+      <div class="nonTile">
+        <button id="mortgageButton" onclick="dropDownMortgagePane();">Mortgage</button>
+      </div>
+      <div class="nonTile"></div>
+      <div class="nonTile">
+        <button id="tradeButton" onclick="dropDownTradePane();">Make Trade</button>
+      </div>
+      <div class="nonTile"></div>
+      <div class="nonTile">
+        <button id="buyHousesButton" onclick="dropDownBuyHousesPane();">Buy Houses</button>
+      </div>
+      <div class="nonTile"></div>
       <div class="nonTile"></div>
       <div id="LuxuryTax" class="tile eastTile"><img src="images/luxury_tax.png" alt="Luxury Tax"></div>
 
