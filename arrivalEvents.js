@@ -1,45 +1,75 @@
 // arrivalEvents.js
 
-
-// EVENT: landing on GO:
+// event: landing on GO:
 board[0].arrivalEvents.push(
   function() {
     console.log(activePlayer.name + ", you've landed on Go! Congratulations!"
-                + " Here is 2 million plus an extra 3 million!");
-    alert("You landed on GO! Collect 2 Million!");
-    activePlayer.receiveMoney(5000000);
+                + " Here is 2 million plus an EXTRA 2 million!");
+    activePlayer.receiveMoney(4000000);
   }
 );
 
+// event: landing on income tax space:
+board[4].arrivalEvents.push(
+  function() {
+    console.log(activePlayer.name + ", you must pay $2 Million in income tax!");
+    activePlayer.sendMoney(2000000);
+  }
+);
 
-// EVENTS: give player a chance to buy property if unowned:
+// events for landing on a property tile:
 for (let tile of board) {
   if (tile.isProperty) {
+
+    // give player option to buy unowned property:
     tile.arrivalEvents.push(
       function() {
         let tileCoordinate = activePlayer.getPlayerTileCoordinate();
         let tile = board[tileCoordinate];
-        if (tile.owner === null) {
-          let answer = prompt("Do you want to buy this property? It costs $" +
-            parseCashValue(tile.propertyValue) + ".");
-          if (answer === "") {
-            activePlayer.sendMoney(tile.propertyValue);
-            activePlayer.buyProperty(tile.spaceID);
-            tile.owner = activePlayer;
-            document.getElementById(tile.spaceID).classList.add(activePlayer.highlightedClassName);
+        if (tile.owner === "no owner" && !tile.mortgaged) {
+          dropDownBuyPropertyPane(activePlayer);
           }
+        }
+    );
+
+
+    // pay rent on property if necessary:
+    tile.arrivalEvents.push(
+      function() {
+        let otherPlayer = null;
+        let cashAmount = 0;
+        if (activePlayer === playerOne) {
+          otherPlayer = playerTwo;
+        } else {
+          otherPlayer = playerOne;
+        }
+        if (tile.owner !== activePlayer && tile.owner !== "no owner" && !tile.mortgaged) {
+          if (tile.propertyGroup === "railroad") {
+            cashAmount = tile.rentValues[otherPlayer.railRoadsOwned - 1];
+          } else {
+            cashAmount = tile.rentValues[tile.structures];
+          }
+          activePlayer.sendMoney(cashAmount);
+          otherPlayer.receiveMoney(cashAmount);
+          console.log(activePlayer.name + " just paid " + cashAmount + " to " + otherPlayer.name);
         }
       }
     );
-    
-    /*
-    tile.arrivalEvents.push(
-      null
-      // check if you have to pay rent;
-    ) */
-  }
 
+
+  }
 }
 
 
-// EVENT: landing on "Go To Jail" space
+// event: landing on "Free Parking"
+board[21].arrivalEvents.push(
+  function() {
+    console.log("You landed on Free Parking. Collect half a million dollars!");
+    activePlayer.receiveMoney(500000);
+  }
+);
+
+
+
+
+// event: landing on "Go To Jail" space
