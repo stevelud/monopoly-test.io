@@ -77,6 +77,26 @@
       e.classList.add("dropDown");
       e.classList.remove("goUp");
     }
+    function dropDownBuyPropertyPane(player) {
+      let e = document.getElementById("dropDownPane");
+
+      let playerSpace = board[player.tileCoordinate];
+
+      // Get space object properties of player's new propety location
+
+      let htmlFiller = "";
+      htmlFiller += `<h3>Do you want to buy ${playerSpace.spaceID}?</h3>`;
+      htmlFiller += "<button onclick='activePlayer.buyProperty(board[activePlayer.tileCoordinate]);";
+      htmlFiller += "sendPaneOutOfView();'>Yes</button><br>";
+      htmlFiller += "<button onclick='sendPaneOutOfView();'>No</button>";
+
+      //  .... HTML content to go here (buttons, property img, etc.)
+
+      document.getElementById("dropDownPaneContent").innerHTML = htmlFiller;
+
+      e.classList.add("dropDown");
+      e.classList.remove("goUp");
+    }
     function sendPaneOutOfView() {
       let e = document.getElementById("dropDownPane");
       e.classList.remove("dropDown");
