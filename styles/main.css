@@ -2,6 +2,7 @@
 
 * { margin: 0; padding: 0; }
 
+
 /**   Header Styling   **/
 header {
   width:100%;
@@ -20,14 +21,15 @@ h1 {
 
 /**   Content Styling  **/
 main {
-  width:80%;
-  max-width:975px;
+  width:90%;
   margin:auto;
   display:grid;
-  grid-template-columns: auto auto;
+  grid-column-start:1;
+  grid-column-end:4;
+  grid-template-columns: 345px 555px 345px;
   grid-template-rows: auto;
-  grid-gap: 15px;
-  */
+  grid-template-areas:"chatArea boardWrapper controlPanel";
+  grid-column-gap: 25px;
 }
 
 @font-face {
@@ -35,7 +37,59 @@ main {
   src: url(MONOPOLY_INLINE.ttf);
 }
 
+/**  ChatArea Styling  **/
 
+.chatArea {
+  width:100%;
+  border:1px solid black;
+  font-family:MONOPOLY_INLINE;
+}
+
+.chatArea h2 {
+  width:100%;
+  background-color:#85bb65;
+  color:white;
+}
+
+#chatBox {
+  font-family:Arial;
+  font-size:.8em;
+  height:430px;
+  width:90%;
+  padding:4px;
+  margin:auto;
+  margin-top:15px;
+  overflow-x:hidden;
+  overflow-y:auto;
+  background-color:#E8E8E8;
+}
+
+#sendMessageBox {
+  height:50px;
+  width:90%;
+  margin:auto;
+  margin-top:15px;
+}
+
+#sendMessageBox input {
+  height:31px;
+  width:50%;
+  font-size:1.15em;
+}
+
+#sendMessageBox input[type="button"] {
+  display:inline-block;
+  width:45%;
+  float:right;
+  height:35px;
+  border-radius:0;
+  color:white;
+  background-color:blue;
+}
+
+#sendMessageBox input[type="button"]:hover {
+  cursor:pointer;
+}
 
 /**   Board Styling    **/
 
@@ -44,30 +98,30 @@ main {
   max-width:575px;
 }
 
-    #board {
-      font-family:"MONOPOLY_INLINE";
-      text-align:center;
-      width:100%;
-      display:grid;
-      grid-template-columns: 75px 45px 45px 45px 45px 45px 45px 45px 45px 45px 75px;
-      grid-template-rows: 75px 45px 45px 45px 45px 45px 45px 45px 45px 45px 75px;
-      grid-gap:0px;
-      grid-template-areas: "cornerTile tile tile tile tile tile tile tile tile tile cornerTile"
-                            "tile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile tile"
+#board {
+  font-family:"MONOPOLY_INLINE";
+  text-align:center;
+  width:100%;
+  display:grid;
+  grid-template-columns: 75px 45px 45px 45px 45px 45px 45px 45px 45px 45px 75px;
+  grid-template-rows: 75px 45px 45px 45px 45px 45px 45px 45px 45px 45px 75px;
+  grid-gap:0px;
+  grid-template-areas: "cornerTile tile tile tile tile tile tile tile tile tile cornerTile"
+                        "tile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile tile"
 
-                            "tile nonTile nonTile nonTile buttonTile buttonTile buttonTile nonTile nonTile nonTile nonTile tile"
+                        "tile nonTile nonTile nonTile buttonTile buttonTile buttonTile nonTile nonTile nonTile nonTile tile"
 
-                            "tile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile tile"
+                        "tile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile tile"
 
-                            "tile nonTile nonTile displayTile displayTile displayTile displayTile displayTile nonTile nonTile nonTile tile"
-                            "tile nonTile nonTile displayTile displayTile displayTile displayTile displayTile nonTile nonTile nonTile tile"
-                            "tile nonTile nonTile displayTile displayTile displayTile displayTile displayTile nonTile nonTile nonTile tile"
+                        "tile nonTile nonTile displayTile displayTile displayTile displayTile displayTile nonTile nonTile nonTile tile"
+                        "tile nonTile nonTile displayTile displayTile displayTile displayTile displayTile nonTile nonTile nonTile tile"
+                        "tile nonTile nonTile displayTile displayTile displayTile displayTile displayTile nonTile nonTile nonTile tile"
 
-                            "tile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile tile"
-                            "tile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile tile"
-                            "tile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile tile"
-                           "cornerTile tile tile tile tile tile tile tile tile tile cornerTile";
-    }
+                        "tile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile tile"
+                        "tile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile tile"
+                        "tile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile nonTile tile"
+                       "cornerTile tile tile tile tile tile tile tile tile tile cornerTile";
+}
 
     .northPropertyTile {
       display:grid;
@@ -222,23 +276,27 @@ main {
 /****   Drop Down Pane Styles:   ****/
 
    #dropDownPane {
-     width:650px;
-     height:320px;
+     width:600px;
+     height:240px;
+     margin:auto;
+     padding:15px;
      background-color:#85bb65;
      border:2px solid black;
+     border-radius:10px;
      position:absolute;
-     transform:translate(200px, -550px);
+     transform:translate(0px, -550px);
      z-index:2;
    }
    #dropDownPaneContent {
-     min-width:610;
-     min-height:280px;
-     margin:20px;
      background-color:white;
+     height:88%;
+     border-radius:10px;
+     padding:15px;
    }
    #dropDownPane button {
      width:100px;
      height:30px;
+     margin:5px;
    }
    .dropDown {
      animation-name:dropDownDiv;
@@ -248,8 +306,8 @@ main {
      animation-fill-mode:forwards;
    }
    @keyframes dropDownDiv {
-     from { transform:translate(200px, -550px); }
-     to { transform:translate(200px, 150px); }
+     from { transform:translate(325px, -550px); }
+     to { transform:translate(325px, 150px); }
    }
    .goUp {
      animation-name:goUpDiv;
@@ -259,8 +317,8 @@ main {
      animation-fill-mode:forwards;
    }
    @keyframes goUpDiv {
-     from { transform:translate(200px, 150px); }
-     to { transform:translate(200px, -550px); }
+     from { transform:translate(325px, 150px); }
+     to { transform:translate(325px, -550px); }
    }
 
 
@@ -273,7 +331,6 @@ main {
       border:1px solid black;
       font-size:2.3em;
       transform:translate(8px, 8px);
-      /*display:grid;*/
       grid-template-rows:25% 75%;
       grid-template-columns:100%;
       grid-template-areas:"displayedCard-color" "displayedCard-empty";
@@ -303,7 +360,6 @@ main {
       min-width:120px;
       transform:translateY(12px);
     }
-
     #tradeButton, #buyHousesButton, #mortgageButton {
       font-family:MONOPOLY_INLINE;
       width:100px;
@@ -318,7 +374,6 @@ main {
     }
     #buyHousesButton {
       transform:translate(0px, -24px);
-
     }
 
 /****      Dice Styles      ****/
@@ -365,40 +420,40 @@ main {
 
   #controlPanel {
     font-family:MONOPOLY_INLINE, sans-serif, monospace;
-    max-width:400px;
+    min-width:100%;
+    /*
+    max-width:300px;
+    */
     min-height:535px;
-    height:100%;
+    /* height:100%; */
     border:1px solid black;
     display:inline-block;
     display:grid;
-    grid-template-columns: 400px;
+    grid-template-columns: 100%;
     grid-template-rows:50% 50%;
     grid-template-areas: "playerPanel" "playerPanel";
   }
-
   #controlPanel p {
     margin-top:5px;
     margin-left:5px;
   }
-
   .playerPanel {
     max-width:100%;
   }
-
   .playerPanel h2 {
     color:white;
     background-color:#85bb65;
-    max-width:100%;
-    padding:5px;
+    width:100%;
+    /*padding:5px;*/
   }
-
   #playerOnePanel:hover {
     border:2px solid red;
+    cursor: pointer;
   }
   #playerTwoPanel:hover {
     border:2px solid blue;
+    cursor: pointer;
   }
-
 
 /**   Miscellaneous Styling   **/
   img {
