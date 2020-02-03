@@ -97,6 +97,7 @@ const board = [
       spaceID: "ReadingRailroad",
       propertyGroup: "railroad",
       spaceIDAsHTML: "Reading<br>Railroad",
+      bgImage: "images/railroad_south.jpeg",
       monopolyTrigger: null,   // "true" if part of one player's monopoly
       propertyValue: 200000,
       mortgageValue: 100000,
@@ -263,6 +264,8 @@ const board = [
     {
       spaceID: "PennsylvaniaRailroad",
       propertyGroup: "railroad",
+      spaceIDAsHTML: "Pennsylvania<br>Railroad",
+      bgImage: "images/railroad_south.jpeg",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
       propertyValue: 200000,
       mortgageValue: 100000,
@@ -428,6 +431,8 @@ const board = [
     {
       spaceID: "BORailroad",
       propertyGroup: "railroad",
+      spaceIDAsHTML: "B & O<br>Railroad",
+      bgImage: "images/railroad_south.jpeg",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
       propertyValue: 200000,
       mortgageValue: 100000,
@@ -588,7 +593,8 @@ const board = [
     },
     {
       spaceID: "ShortLineRailroad",
-      spaceIDAsHTML: "Short<br>Line<br>Railroad",
+      spaceIDAsHTML: "Short Line<br>Railroad",
+      bgImage: "images/railroad_south.jpeg",
       propertyGroup: "railroad",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
       propertyValue: 200000,

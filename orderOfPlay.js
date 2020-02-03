@@ -2,16 +2,23 @@
 
 
 // const inputName = window.prompt("You will be Player One. What is your name?");
-let playerOne = new Player("Steven", 15000000);;
-let playerTwo = new Player("Computer", 15000000);
+let playerOne = new Player("Steven", 5000000);;
+let playerTwo = new Player("Computer", 5000000);
+playerOne.tileCoordinate = 35;
+playerTwo.tileCoordinate = 35;
+
 let activePlayer = playerOne;
 document.getElementById("playerOneCash").textContent = "$ " +
   parseCashValue(playerOne.cash);
 document.getElementById("playerTwoCash").textContent = "$ " +
   parseCashValue(playerTwo.cash);
+updateControlPanel();
 
-playerOne.highlightedClassName = "playerOneProperties";
-playerTwo.highlightedClassName = "playerTwoProperties";
+playerOne.highlightedClassName = "playerOnePropertiesStyles";
+playerTwo.highlightedClassName = "playerTwoPropertiesStyles";
+
+playerOne.playerClassName = "playerOneProperties";
+playerTwo.playerClassName = "playerTwoProperties";
 
 
 /*
@@ -19,7 +26,17 @@ const button = document.getElementById("rollButton");
 button.addEventListener('click', initiateTurn());
 */
 
+
 function initiateTurn() {
+
+  // if player is in jail:
+    // first, second turn in jail:
+      // offer player chance (via drop down pane)...
+      // ...to pay $100,000 to get out or roll doubles...
+      // ...to get out without paying
+    // third turn in jail:
+      // player pays $100,000 to get out if doubles are never rolled
+
   activePlayer.movePiece();
 }
 
@@ -27,9 +44,9 @@ function endTurn() {
 
   updateControlPanel();
 
-  if (activePlayer === playerOne) {
-    activePlayer = playerTwo;
-  } else { activePlayer = playerOne }
+  switchPlayer();
+
+  hideDice();
 
   // update button text and attribute function:
   document.getElementById("buttonText").textContent = "ROLL";
@@ -37,37 +54,67 @@ function endTurn() {
 
 }
 
-// update control panel for both players:
-function updateControlPanel() {
-  document.getElementById("playerOneCash").textContent = "$" +
-    parseCashValue(playerOne.cash);
-  document.getElementById("playerTwoCash").textContent = "$" +
-    parseCashValue(playerTwo.cash);
-  document.getElementById("playerOnePropertyValue").textContent = "$" +
-    parseCashValue(playerOne.valueFromOwnedProperties);
-  document.getElementById("playerTwoPropertyValue").textContent = "$" +
-    parseCashValue(playerTwo.valueFromOwnedProperties);
-  document.getElementById("playerOneNetWorth").textContent = "$" +
-    parseCashValue(playerOne.valueFromOwnedProperties + playerOne.cash);
-  document.getElementById("playerTwoNetWorth").textContent = "$" +
-    parseCashValue(playerTwo.valueFromOwnedProperties + playerTwo.cash);
-
-  let playerOneProperties = playerOne.propertiesOwned;
-  let playerOnePropertyText = "";
-  for (let property of playerOneProperties) {
-    playerOnePropertyText += property.spaceID + ", ";
-  }
-  document.getElementById("playerOneProperties").textContent = playerOnePropertyText;
-
-  let playerTwoProperties = playerTwo.propertiesOwned;
-  let playerTwoPropertyText = "";
-  for (let property of playerTwoProperties) {
-    playerTwoPropertyText += property.spaceID + ", ";
-  }
-  document.getElementById("playerTwoProperties").textContent = playerTwoPropertyText;
+// send message from human player via text input:
+function sendChatMessage() {
+  let message = document.getElementById("sendChatInput");
+  if (message.value === "") return;
+  appendChatMessage(message.value, activePlayer);
+  message.value = "";
 }
 
+// send message in the chat log:
+function appendChatMessage(message, speaker) {
 
+  let d = new Date();
+  let h = d.getHours();
+  let m = d.getMinutes();
+  let s = d.getSeconds();
+  if (h < 10) {
+    h = "0" + h.toString();
+  }
+  if (m < 10) {
+    m = "0" + m.toString();
+  }
+  if (s < 10) {
+    s = "0" + s.toString();
+  }
+  let timeStamp = "(" + h + ":" + m + ":" + s + ")";
+  if (arguments.length == 1) {
+    speaker = "";
+  } else {
+    // this line must ultimately change:
+    speaker = "&nbsp;<span style='color:white;background-color:red;padding:0 3px;'>" +
+      activePlayer.name + "</span>";
+  }
+  let output = document.getElementById("chatBox");
+  output.innerHTML += "<strong>" + timeStamp + "</strong>" + speaker +
+   ": " +  message + "<br>";
+
+  scrollToBottom();
+}
+
+// scroll to bottom of chatBox:
+function scrollToBottom() {
+  let scrollBox = document.getElementById("chatBox");
+  scrollBox.scrollTop = scrollBox.offsetHeight;
+}
+
+// at end of turn, the next player's turn begins:
+function switchPlayer() {
+  if (activePlayer === playerOne) {
+    activePlayer = playerTwo;
+  } else { activePlayer = playerOne }
+}
+
+// hide the dice before they are rolled by the next player:
+function hideDice() {
+  document.getElementById("dice_alpha").style.display = "none";
+  document.getElementById("dice_beta").style.display = "none";
+}
+
+/**         Animation Functions         **/
+
+// animation of rolling dice that settles on the actual rolled number:
 function animateDice(multiplier, dieAlphaNumber, dieBetaNumber) {
   let numAlpha1 = document.getElementById("pip_alpha_one");
   let numAlpha2 = document.getElementById("pip_alpha_two");
@@ -300,4 +347,44 @@ function animateDice(multiplier, dieAlphaNumber, dieBetaNumber) {
    // AT THIS POINT: the actual rolled numbers appear
    // and let the borders blink yellow, say three times
    setTimeout(blinkYellow, multiplier * 28000);
+}
+
+// animate the movement of a player from one space to another;
+// startingSpace and endingSpace are integer arguments:
+function animateMovingSpaces(startingCoordinate, endingCoordinate) {
+
+  // conditional statement to see if player passes GO:
+  if (endingCoordinate >= 40) {
+
+    let distanceFromGo = 40 - startingCoordinate;
+
+    for (let i = startingCoordinate; i < 40; i++) {
+      let space = document.getElementById(board[i].spaceID);
+      setTimeout(() => {
+        space.classList.add(activePlayer.highlightedClassName);
+      }, 0 + (i + .5 - startingCoordinate) * 500);
+      setTimeout(() => {
+        space.classList.remove(activePlayer.highlightedClassName);
+      }, 500 + (i + .5 - startingCoordinate) * 500);
+    }
+    for (let i = 0; i <= (endingCoordinate - 40); i++) {
+      let space = document.getElementById(board[i].spaceID);
+      setTimeout(() => {
+        space.classList.add(activePlayer.highlightedClassName);
+      }, (0 + (i + .5 + distanceFromGo) * 500));
+      setTimeout(() => {
+        space.classList.remove(activePlayer.highlightedClassName);
+      }, (500 + (i + .5 + distanceFromGo) * 500));
+    }
+  } else {
+    for (let i = startingCoordinate; i <= endingCoordinate; i++) {
+      let space = document.getElementById(board[i].spaceID);
+      setTimeout(() => {
+        space.classList.add(activePlayer.highlightedClassName);
+      }, 0 + (i + .5 - startingCoordinate) * 500);
+      setTimeout(() => {
+        space.classList.remove(activePlayer.highlightedClassName);
+      }, 500 + (i + .5 - startingCoordinate) * 500);
+    }
+  }
 }

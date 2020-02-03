@@ -4,7 +4,7 @@
 board[0].arrivalEvents.push(
   function() {
     console.log(activePlayer.name + ", you've landed on Go! Congratulations!"
-                + " Here is 2 million plus an EXTRA 2 million!");
+                + " Here is $500,000 plus an EXTRA $500,000!");
     activePlayer.receiveMoney(4000000);
   }
 );
@@ -12,8 +12,8 @@ board[0].arrivalEvents.push(
 // event: landing on income tax space:
 board[4].arrivalEvents.push(
   function() {
-    console.log(activePlayer.name + ", you must pay $2 Million in income tax!");
-    activePlayer.sendMoney(2000000);
+    console.log(activePlayer.name + ", you must pay $500,000 in income tax!");
+    activePlayer.sendMoney(500000);
   }
 );
 
@@ -51,7 +51,8 @@ for (let tile of board) {
           }
           activePlayer.sendMoney(cashAmount);
           otherPlayer.receiveMoney(cashAmount);
-          console.log(activePlayer.name + " just paid " + cashAmount + " to " + otherPlayer.name);
+          console.log(activePlayer.name + " just paid $" + parseCashValue(cashAmount) + " to " + otherPlayer.name);
+          appendChatMessage(activePlayer.name + " just paid $" + parseCashValue(cashAmount) + " to " + otherPlayer.name + ".");
         }
       }
     );
@@ -65,6 +66,8 @@ for (let tile of board) {
 board[21].arrivalEvents.push(
   function() {
     console.log("You landed on Free Parking. Collect half a million dollars!");
+    appendChatMessage(activePlayer.name + " landed on Free Parking. " +
+      activePlayer.name + " collects half a million dollars!");
     activePlayer.receiveMoney(500000);
   }
 );

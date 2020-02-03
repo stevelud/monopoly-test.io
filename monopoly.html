@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Monopoly</title>
+  <link rel="icon" type="image/x-icon" href="iconfinder_Monopoly_190317.png">
 
   <link href="styles/main.css" rel="stylesheet">
 
@@ -34,20 +35,25 @@
       /**
        *    Triggers for Card Display
        */
-       let staticNodeListForProperties =
-         [...document.getElementsByClassName('northPropertyTile'),
+       let staticNodeListForProperties = [
+          ...document.getElementsByClassName('northPropertyTile'),
           ...document.getElementsByClassName('eastPropertyTile'),
           ...document.getElementsByClassName('westPropertyTile'),
-          ...document.getElementsByClassName('southPropertyTile')];
+          ...document.getElementsByClassName('southPropertyTile')
+        ];
        for (let property of staticNodeListForProperties) {
          let id = "#" + property.id;
          $(id).mouseenter(function() {
            let space = returnPropertyObjectFromIndex(property.id);
+           let owner;
+           if (typeof space.owner === "string") {
+             owner = "No Owner"
+           } else { owner = space.owner.name; }
            $("#displayedCard").css("display", "grid");
            $("#displayedCard-color").css("background-color", space.propertyGroup);
            $("#displayedCard-empty").html(space.spaceIDAsHTML);
            $("#ownerStatusFromDisplayCard").css("display", "block");
-           $("#ownerStatusFromDisplayCard").text("Owner: " + space.owner.name);
+           $("#ownerStatusFromDisplayCard").text("Owner: " + owner);
            $("#valueStatusFromDisplayCard").css("display", "block");
            $("#valueStatusFromDisplayCard").text("Value: " + "$" + parseCashValue(space.propertyValue));
            // $("#displayedCard-empty").text(board[21].spaceID);  // <- OK: can insert obj props
@@ -55,47 +61,99 @@
          $(id).mouseleave(function() {
            $("#displayedCard").css("display", "none");
            $("#displayedCard-empty").html("");
+           $("#displayedCard-color").css("background-color", "");
            $("#ownerStatusFromDisplayCard").css("display", "none");
            $("#ownerStatusFromDisplayCard").text("");
            $("#valueStatusFromDisplayCard").css("display", "none");
            $("#valueStatusFromDisplayCard").text("");
          });
        }
+
+
+       let railroadPropertyList = [
+          document.getElementById("ReadingRailroad"),
+          document.getElementById("BORailroad"),
+          document.getElementById("ShortLineRailroad"),
+          document.getElementById("PennsylvaniaRailroad")
+       ];
+       for (let property of railroadPropertyList) {
+         let id = "#" + property.id;
+         $(id).mouseenter(function() {
+           let space = returnPropertyObjectFromIndex(property.id);
+           let img = space.bgImage;
+           let owner;
+           if (typeof space.owner === "string") {
+             owner = "No Owner"
+           } else { owner = space.owner.name; }
+           $("#displayedCard").css("display", "block");
+           $("#displayedCard-color").css("border-bottom", "none");
+           $("#displayedCard-image").attr("src", img);
+
+           $("#displayedCard-color").html(space.spaceIDAsHTML);
+           $("#displayedCard").css("font-size", ".8em");
+
+           $("#ownerStatusFromDisplayCard").css("display", "block");
+           $("#ownerStatusFromDisplayCard").text("Owner: " + owner);
+           $("#valueStatusFromDisplayCard").css("display", "block");
+           $("#valueStatusFromDisplayCard").text("Value: " + "$" + parseCashValue(space.propertyValue));
+         });
+         $(id).mouseleave(function() {
+           $("#displayedCard").css("display", "none");
+           $("#displayedCard-color").css("border-bottom", "1px solid black");
+           $("#displayedCard-color").html("");
+           $("#displayedCard-image").attr("src", "none");
+           $("#displayedCard").css("font-size", "2.2em");
+
+           $("#ownerStatusFromDisplayCard").css("display", "none");
+           $("#ownerStatusFromDisplayCard").text("");
+           $("#valueStatusFromDisplayCard").css("display", "none");
+           $("#valueStatusFromDisplayCard").text("");
+
+         });
+       }
     });
+
+    /**       Methods for Drop Down Pane      **/
+
     function dropDownTradePane() {
       let e = document.getElementById("dropDownPane");
+      document.getElementById("dropDownPaneContent").innerHTML = "";
       e.classList.add("dropDown");
       e.classList.remove("goUp");
     }
     function dropDownMortgagePane() {
       let e = document.getElementById("dropDownPane");
+      document.getElementById("dropDownPaneContent").innerHTML = "";
       e.classList.add("dropDown");
       e.classList.remove("goUp");
     }
     function dropDownBuyHousesPane() {
       let e = document.getElementById("dropDownPane");
+      document.getElementById("dropDownPaneContent").innerHTML = "";
       e.classList.add("dropDown");
       e.classList.remove("goUp");
     }
     function dropDownBuyPropertyPane(player) {
-      let e = document.getElementById("dropDownPane");
+      let pane = document.getElementById("dropDownPane");
 
       let playerSpace = board[player.tileCoordinate];
+
+      document.getElementById("dropDownPaneContent").innerHTML = "";
 
       // Get space object properties of player's new propety location
 
       let htmlFiller = "";
       htmlFiller += `<h3>Do you want to buy ${playerSpace.spaceID}?</h3>`;
       htmlFiller += "<button onclick='activePlayer.buyProperty(board[activePlayer.tileCoordinate]);";
-      htmlFiller += "sendPaneOutOfView();'>Yes</button><br>";
+      htmlFiller += "sendPaneOutOfView();'>Yes</button>&nbsp;&nbsp;";
       htmlFiller += "<button onclick='sendPaneOutOfView();'>No</button>";
 
       //  .... HTML content to go here (buttons, property img, etc.)
 
       document.getElementById("dropDownPaneContent").innerHTML = htmlFiller;
 
-      e.classList.add("dropDown");
-      e.classList.remove("goUp");
+      pane.classList.add("dropDown");
+      pane.classList.remove("goUp");
     }
     function sendPaneOutOfView() {
       let e = document.getElementById("dropDownPane");
@@ -109,6 +167,7 @@
 
   <header><h1>MONOPOLY!</h1></header>
 
+
   <main>
 
     <div id="dropDownPane">
@@ -117,7 +176,16 @@
       </div>
     </div>
 
-    <div id="boardWrapper">
+    <div class="chatArea">
+      <h2>&nbsp;&nbsp;Message Log</h2>
+      <div id="chatBox"></div>
+      <div id="sendMessageBox">
+        <input id="sendChatInput" type="text"><input onclick="sendChatMessage()" type="button" value="Send">
+      </div>
+    </div>
+
+
+    <div class="boardWrapper" id="boardWrapper">
 
       <div id="board">
 
@@ -357,7 +425,7 @@
       </div>
 
       <div id="Jail" class="cornerTile" style="border-right:0;"><img src="images/jail.jpg" style="width:100%;height:100%;" alt="Jail Space"></div>
-      <div id="ConnecticutAvenue" class="tile southPropertyTile">
+      <div id="ConnecticutAvenue" style=""class="tile southPropertyTile">
         <div class="color" style="background-color:lightblue;border-bottom:1px solid black;"></div>
         <div class="empty">Conn-<br>ecticut<br>Avenue</div>
       </div>
@@ -398,9 +466,9 @@
     </div>
 
 
-    <div id="controlPanel">
+    <div class="controlPanel" id="controlPanel">
       <div class="playerPanel" id="playerOnePanel">
-        <h2>Player One</h2>
+        <h2>&nbsp;&nbsp;Player One</h2>
         <p>Cash: <span id="playerOneCash"></span></p>
         <hr>
         <p>Property Value: <span id="playerOnePropertyValue"></span></p>
@@ -411,7 +479,7 @@
       </div>
 
       <div class="playerPanel" id="playerTwoPanel">
-        <h2>Player Two</h2>
+        <h2>&nbsp;&nbsp;Player Two</h2>
         <p>Cash: <span id="playerTwoCash"></span></p>
         <hr>
         <p>Property Value: <span id="playerTwoPropertyValue"></span></p>
