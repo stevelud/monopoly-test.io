@@ -17,6 +17,7 @@ function Player(name, cash) {
 
   /*    Methods     */
   this.movePiece = function() {   // roll dice, land on new space
+
     const diceRoll = rollDice();
     document.getElementById("buttonText").textContent = "END";
     document.getElementById("rollButton").setAttribute("onclick", "endTurn()");
@@ -31,15 +32,17 @@ function Player(name, cash) {
     document.getElementById("dice_alpha").style.display = "inline-block";
     document.getElementById("dice_beta").style.display = "inline-block";
 
+
     function beginTurn() {
       animateDice(0.2, diceRoll[0] - 1, diceRoll[1] - 1);
       return new Promise(resolve => {
         setTimeout(() => {
           resolve("Dice animation done.");
-          appendChatMessage(activePlayer.name + ", you rolled " + (diceRoll[0] + diceRoll[1]) + ".");
+          appendChatMessage(activePlayer.name + " rolled a " + (diceRoll[0] + diceRoll[1]) + ".");
         }, 7000);
       });
     }
+
 
     async function movingPiece() {
       let completeStatus = await beginTurn();
@@ -53,7 +56,9 @@ function Player(name, cash) {
       if (diceRoll[0] === diceRoll[1]) {
         activePlayer.doublesRolled++;
         if (activePlayer.doublesRolled === 3) {
-          alert("Oh no! Three doubles in a row! That's speeding. Off to jail with you!");
+          alert("Oh no! Three doubles in a row! That's speeding. Off to jail for " + activePlayer.name + "!");
+          appendChat("Oh no! Three doubles in a row! That's speeding. Off to jail for " + activePlayer.name + "!");
+
           activePlayer.tileCoordinate = 10;
           activePlayer.jailStatusTurn = 3;
         }
@@ -66,9 +71,10 @@ function Player(name, cash) {
       return new Promise(resolve => {
         setTimeout(() => {
           resolve("Movement animation done.");
-        }, 500 + (movementAmount + .5) * 500);
+        }, 1000 + (movementAmount + .5) * 500);
       });
     }
+
 
     async function continueTurn() {
       let completeStatus = await movingPiece();
@@ -79,16 +85,16 @@ function Player(name, cash) {
 
       // EVENT: you just passed GO:
       if (activePlayer.tileCoordinate + diceRoll[0] + diceRoll[1] > 40) {
-        console.log("You passed GO! Collect $500,000!");
-        appendChatMessage("You passed GO! Collect $500,000!");
+        console.log(activePlayer.name + " passed GO and collects $500,000!");
+        appendChatMessage(activePlayer.name + " passed GO and collects $500,000!");
         activePlayer.receiveMoney(500000);
       }
       activePlayer.setPlayerTileCoordinate(diceRoll[0] + diceRoll[1]);
       activePlayer.setPlayerTileLocation(activePlayer.tileCoordinate);
 
       // for testing purposes:
-      console.log(activePlayer.name + ", you are now at " + activePlayer.tileLocation + ".");
-      appendChatMessage(activePlayer.name + ", you are now at " + activePlayer.tileLocation + ".");
+      console.log(activePlayer.name + " is now at " + activePlayer.tileLocation + ".");
+      appendChatMessage(activePlayer.name + " is now at " + activePlayer.tileLocation + ".");
       console.log("You have " + parseCashValue(activePlayer.cash) + " to spend.");
       console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXX");
 
@@ -104,8 +110,8 @@ function Player(name, cash) {
     this.valueFromOwnedProperties += property.propertyValue;
     property.owner = activePlayer;
     document.getElementById(property.spaceID).classList.add(this.playerClassName);
-    console.log(this.name + ", you just bought " + property.spaceID + " for " + property.propertyValue);
-    appendChatMessage(this.name + ", you just bought " + property.spaceID + " for $" + parseCashValue(property.propertyValue));
+    console.log(this.name + " just bought " + property.nameForTextUse + " for " + property.propertyValue);
+    appendChatMessage(this.name + " just bought " + property.nameForTextUse + " for $" + parseCashValue(property.propertyValue));
     this.propertiesOwned.push(property);
     if (property.propertyGroup === "railroad") {
       this.railRoadsOwned++;
@@ -150,7 +156,7 @@ function Player(name, cash) {
   }
 
   this.setPlayerTileLocation = function(playerTileCoordinate) {
-    this.tileLocation = board[playerTileCoordinate].spaceID;
+    this.tileLocation = board[playerTileCoordinate].nameForTextUse;
   }
 
   this.getPlayerTileLocation = function() {

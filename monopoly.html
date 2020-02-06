@@ -143,7 +143,7 @@
       // Get space object properties of player's new propety location
 
       let htmlFiller = "";
-      htmlFiller += `<h3>Do you want to buy ${playerSpace.spaceID}?</h3>`;
+      htmlFiller += `<h3>Do you want to buy ${playerSpace.nameForTextUse}?</h3>`;
       htmlFiller += "<button onclick='activePlayer.buyProperty(board[activePlayer.tileCoordinate]);";
       htmlFiller += "sendPaneOutOfView();'>Yes</button>&nbsp;&nbsp;";
       htmlFiller += "<button onclick='sendPaneOutOfView();'>No</button>";

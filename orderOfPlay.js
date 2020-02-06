@@ -1,11 +1,15 @@
 // orderOfPlay.js
 
+/*** TESTING PURPOSES: **/
 
 // const inputName = window.prompt("You will be Player One. What is your name?");
 let playerOne = new Player("Steven", 5000000);;
 let playerTwo = new Player("Computer", 5000000);
-playerOne.tileCoordinate = 35;
-playerTwo.tileCoordinate = 35;
+// playerOne.tileCoordinate = 35;
+// playerTwo.tileCoordinate = 35;
+
+/*** END OF TESTING PURPOSES AREA **/
+
 
 let activePlayer = playerOne;
 document.getElementById("playerOneCash").textContent = "$ " +
@@ -387,4 +391,30 @@ function animateMovingSpaces(startingCoordinate, endingCoordinate) {
       }, 500 + (i + .5 - startingCoordinate) * 500);
     }
   }
+}
+
+// add house to board (on the "color" class of the space):
+// (houseNumber is the number of houses purchase this turn)
+function setHousesToBoard(spaceID, houseNumber) {
+
+  // this is the narrow color strip where houses are placed once bought:
+  let boardAreaTarget = document.querySelector("#" + spaceID + " .color");
+
+  // create div, append it, for as many houses are being set:
+  for (let i = 1; i <= houseNumber; i++) {
+    let house = document.createElement("div");
+    house.id = "house" + i.toString();
+    house.style.width = "0";
+    house.style.height = "0";
+    house.style.borderTop = "16px solid darkgray"
+    house.style.borderLeft = "8px solid transparent";
+    house.style.borderRight = "8px solid transparent";
+
+    house.style.display = "inline";
+
+    house.style.float = "left";
+
+    boardAreaTarget.appendChild(house);
+  }
+
 }
