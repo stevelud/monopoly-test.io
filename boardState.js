@@ -13,6 +13,7 @@
 const board = [
     {
       spaceID: "Go",
+      nameForTextUse: "Go",
       propertyGroup: null,
       monopolyTrigger: false,   // "true" if part of one player's monopoly
       propertyValue: null,
@@ -29,6 +30,7 @@ const board = [
 
     {
       spaceID: "MediterraneanAvenue",
+      nameForTextUse: "Mediterranean Avenue",
       propertyGroup: "brown",
       spaceIDAsHTML: "Mediterranean<br>Avenue",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -46,6 +48,7 @@ const board = [
 
     {
       spaceID: "CommunityChestSouth",
+      nameForTextUse: "Community Chest",
       propertyGroup: "",
       monopolyTrigger: null,   // "true" if part of one player's monopoly
       propertyValue: 0,
@@ -62,6 +65,7 @@ const board = [
 
     {
       spaceID: "BalticAvenue",
+      nameForTextUse: "Baltic Avenue",
       propertyGroup: "brown",
       spaceIDAsHTML: "Baltic<br>Avenue",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -79,6 +83,7 @@ const board = [
 
     {
       spaceID: "IncomeTax",
+      nameForTextUse: "Income Tax",
       propertyGroup: "",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
       propertyValue: null,
@@ -95,7 +100,8 @@ const board = [
 
     {
       spaceID: "ReadingRailroad",
-      propertyGroup: "railroad",
+      nameForTextUse: "Reading Railroad",
+      propertyGroup: "railroads",
       spaceIDAsHTML: "Reading<br>Railroad",
       bgImage: "images/railroad_south.jpeg",
       monopolyTrigger: null,   // "true" if part of one player's monopoly
@@ -113,6 +119,7 @@ const board = [
 
     {
       spaceID: "OrientalAvenue",
+      nameForTextUse: "Oriental Avenue",
       propertyGroup: "lightblue",
       spaceIDAsHTML: "Oriental<br>Avenue",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -130,6 +137,7 @@ const board = [
 
     {
       spaceID: "ChanceSouth",
+      nameForTextUse: "Chance",
       propertyGroup: "",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
       propertyValue: null,
@@ -146,6 +154,7 @@ const board = [
 
     {
       spaceID: "VermontAvenue",
+      nameForTextUse: "Vermont Avenue",
       propertyGroup: "lightblue",
       spaceIDAsHTML: "Vermont<br>Avenue",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -163,6 +172,7 @@ const board = [
 
     {
       spaceID: "ConnecticutAvenue",
+      nameForTextUse: "Connecticut Avenue",
       propertyGroup: "lightblue",
       spaceIDAsHTML: "Connecticut<br>Avenue",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -180,6 +190,7 @@ const board = [
 
     {
       spaceID: "Jail",
+      nameForTextUse: "Jail",
       propertyGroup: "",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
       propertyValue: null,
@@ -196,6 +207,7 @@ const board = [
 
     {
       spaceID: "StCharlesPlace",
+      nameForTextUse: "St. Charles Place",
       propertyGroup: "purple",
       spaceIDAsHTML: "St.Charles<br>Place",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -213,6 +225,7 @@ const board = [
 
     {
       spaceID: "ElectricCompany",
+      nameForTextUse: "Electric Company",
       propertyGroup: "Utilities",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
       propertyValue: 150000,
@@ -229,6 +242,7 @@ const board = [
 
     {
       spaceID: "StatesAvenue",
+      nameForTextUse: "States Avenue",
       propertyGroup: "purple",
       spaceIDAsHTML: "States<br>Avenue",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -246,6 +260,7 @@ const board = [
 
     {
       spaceID: "VirginiaAvenue",
+      nameForTextUse: "Virginia Avenue",
       propertyGroup: "purple",
       spaceIDAsHTML: "Virginia<br>Avenue",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -263,7 +278,8 @@ const board = [
 
     {
       spaceID: "PennsylvaniaRailroad",
-      propertyGroup: "railroad",
+      nameForTextUse: "Pennsylvania Railroad",
+      propertyGroup: "railroads",
       spaceIDAsHTML: "Pennsylvania<br>Railroad",
       bgImage: "images/railroad_south.jpeg",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -281,6 +297,7 @@ const board = [
 
     {
       spaceID: "StJamesPlace",
+      nameForTextUse: "St. James Place",
       propertyGroup: "orange",
       spaceIDAsHTML: "St.James<br>Place",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -297,6 +314,7 @@ const board = [
     },
     {
       spaceID: "CommunityChestWest",
+      nameForTextUse: "Community Chest",
       propertyGroup: "",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
       propertyValue: null,
@@ -313,6 +331,7 @@ const board = [
 
     {
       spaceID: "TennesseeAvenue",
+      nameForTextUse: "Tennessee Avenue",
       spaceIDAsHTML: "Tennessee<br>Avenue",
       propertyGroup: "orange",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -330,6 +349,7 @@ const board = [
 
     {
       spaceID: "NewYorkAvenue",
+      nameForTextUse: "New York Avenue",
       spaceIDAsHTML: "New York<br>Avenue",
       propertyGroup: "orange",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -347,6 +367,7 @@ const board = [
 
     {
       spaceID: "FreeParking",
+      nameForTextUse: "Free Parking",
       propertyGroup: null,
       monopolyTrigger: false,   // "true" if part of one player's monopoly
       propertyValue: null,
@@ -363,6 +384,7 @@ const board = [
 
     {
       spaceID: "KentuckyAvenue",
+      nameForTextUse: "Kentucky Avenue",
       spaceIDAsHTML: "Kentucky<br>Avenue",
       propertyGroup: "red",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -380,6 +402,7 @@ const board = [
 
     {
       spaceID: "ChanceNorth",
+      nameForTextUse: "Chance",
       propertyGroup: "",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
       propertyValue: null,
@@ -396,6 +419,7 @@ const board = [
 
     {
       spaceID: "IndianaAvenue",
+      nameForTextUse: "Indiana Avenue",
       spaceIDAsHTML: "Indiana<br>Avenue",
       propertyGroup: "red",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -413,6 +437,7 @@ const board = [
 
     {
       spaceID: "IllinoisAvenue",
+      nameForTextUse: "Illinois Avenue",
       spaceIDAsHTML: "Illinois<br>Avenue",
       propertyGroup: "red",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -430,7 +455,8 @@ const board = [
 
     {
       spaceID: "BORailroad",
-      propertyGroup: "railroad",
+      nameForTextUse: "B & O Railroad",
+      propertyGroup: "railroads",
       spaceIDAsHTML: "B & O<br>Railroad",
       bgImage: "images/railroad_south.jpeg",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -448,6 +474,7 @@ const board = [
 
     {
       spaceID: "AtlanticAvenue",
+      nameForTextUse: "Atlantic Avenue",
       spaceIDAsHTML: "Atlantic<br>Avenue",
       propertyGroup: "yellow",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -465,6 +492,7 @@ const board = [
 
     {
       spaceID: "VentnorAvenue",
+      nameForTextUse: "Ventnor Avenue",
       spaceIDAsHTML: "Ventnor<br>Avenue",
       propertyGroup: "yellow",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -482,6 +510,7 @@ const board = [
 
     {
       spaceID: "WaterWorks",
+      nameForTextUse: "Water Works",
       propertyGroup: "Utilities",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
       propertyValue: 150000,
@@ -498,6 +527,7 @@ const board = [
 
     {
       spaceID: "MarvinGardens",
+      nameForTextUse: "Marvin Gardens",
       spaceIDAsHTML: "Marvin<br>Gardens",
       propertyGroup: "yellow",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -515,6 +545,7 @@ const board = [
 
     {
       spaceID: "GoToJail",
+      nameForTextUse: "the Go-To-Jail Space",
       propertyGroup: "",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
       propertyValue: null,
@@ -530,6 +561,7 @@ const board = [
     },
     {
       spaceID: "PacificAvenue",
+      nameForTextUse: "Pacific Avenue",
       spaceIDAsHTML: "Pacific<br>Avenue",
       propertyGroup: "green",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -546,6 +578,7 @@ const board = [
     },
     {
       spaceID: "NorthCarolinaAvenue",
+      nameForTextUse: "North Carolina Avenue",
       propertyGroup: "green",
       spaceIDAsHTML: "North<br>Carolina<br>Avenue",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -562,6 +595,7 @@ const board = [
     },
     {
       spaceID: "CommunityChestEast",
+      nameForTextUse: "Community Chest",
       propertyGroup: "",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
       propertyValue: null,
@@ -577,6 +611,7 @@ const board = [
     },
     {
       spaceID: "PennsylvaniaAvenue",
+      nameForTextUse: "Pennsylvania Avenue",
       propertyGroup: "green",
       spaceIDAsHTML: "Pennsylvania<br>Avenue",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -593,9 +628,10 @@ const board = [
     },
     {
       spaceID: "ShortLineRailroad",
+      nameForTextUse: "Short Line Railroad",
       spaceIDAsHTML: "Short Line<br>Railroad",
       bgImage: "images/railroad_south.jpeg",
-      propertyGroup: "railroad",
+      propertyGroup: "railroads",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
       propertyValue: 200000,
       mortgageValue: 100000,
@@ -610,6 +646,7 @@ const board = [
     },
     {
       spaceID: "ChanceEast",
+      nameForTextUse: "Chance",
       propertyGroup: "",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
       propertyValue: null,
@@ -625,6 +662,7 @@ const board = [
     },
     {
       spaceID: "ParkPlace",
+      nameForTextUse: "Park Place",
       spaceIDAsHTML: "Park Place",
       propertyGroup: "darkblue",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
@@ -641,6 +679,7 @@ const board = [
     },
     {
       spaceID: "LuxuryTax",
+      nameForTextUse: "Luxury Tax",
       propertyGroup: "",
       monopolyTrigger: false,   // "true" if part of one player's monopoly
       propertyValue: 400000,
@@ -656,6 +695,7 @@ const board = [
     },
     {
       spaceID: "Boardwalk",
+      nameForTextUse: "Boardwalk",
       spaceIDAsHTML: "Boardwalk",
       propertyGroup: "darkblue",
       monopolyTrigger: false,   // "true" if part of one player's monopoly

@@ -8,10 +8,22 @@ function Player(name, cash) {
   this.valueFromOwnedProperties = 0;
   this.tileLocation = "Go";   // name of tile player is on
   this.tileCoordinate = 0;   // integer number of tile player is on (e.g. Go is 0)
-  this.propertiesOwned = [];  // array of property names (eventually objects) player owns
+  this.propertiesOwned = {
+    "brown": [0,2],
+    "lightblue": [0,3],
+    "purple": [0,3],
+    "orange": [0,3],
+    "red": [0,3],
+    "yellow": [0,3],
+    "green": [0,3],
+    "darkblue": [0,2],
+    "railroads": [0,4],
+    "Utilities": [0,2]
+  };  // array of property names (eventually objects) player owns
+  this.propertiesOwnedNames = [];
+  this.monopolies = [];   // array of propertyGroup names as strings
   this.doublesRolled = 0;
   this.jailStatusTurn = 0;   // 1-3 means you can't roll to move; 0 means OK to roll
-  this.railRoadsOwned = 0;
   this.highlightedClassName = ""; // for animating player movement across the board
   this.playerClassName = "";  // for styling the current tile location
 
@@ -19,14 +31,12 @@ function Player(name, cash) {
   this.movePiece = function() {   // roll dice, land on new space
 
     const diceRoll = rollDice();
+
     document.getElementById("buttonText").textContent = "END";
     document.getElementById("rollButton").setAttribute("onclick", "endTurn()");
 
     // disable buttons while animations occur:
-    document.getElementById("rollButton").disabled = true;
-    document.getElementById("tradeButton").disabled = true;
-    document.getElementById("mortgageButton").disabled = true;
-    document.getElementById("buyHousesButton").disabled = true;
+    disableButtons();
 
     // set dice to be visible:
     document.getElementById("dice_alpha").style.display = "inline-block";
@@ -34,15 +44,24 @@ function Player(name, cash) {
 
 
     function beginTurn() {
+
+      // if player is in jail:
+        // drop down pane offers player chance to pay to get out
+        // OR roll doubles
+        // IF doubles fail
+          // decrement activePlayer.jailStatusTurn
+          // if activePlayer.jailStatusTurn is 0, then pay to get out and
+          // continue turn (i.e. roll)
+
       animateDice(0.2, diceRoll[0] - 1, diceRoll[1] - 1);
+
       return new Promise(resolve => {
         setTimeout(() => {
           resolve("Dice animation done.");
-          appendChatMessage(activePlayer.name + " rolled a " + (diceRoll[0] + diceRoll[1]) + ".");
+          appendChatMessage(activePlayer.name + " rolled " + (diceRoll[0] + diceRoll[1]) + ".");
         }, 7000);
       });
     }
-
 
     async function movingPiece() {
       let completeStatus = await beginTurn();
@@ -75,7 +94,6 @@ function Player(name, cash) {
       });
     }
 
-
     async function continueTurn() {
       let completeStatus = await movingPiece();
       console.log(completeStatus);
@@ -106,16 +124,24 @@ function Player(name, cash) {
   }
 
   this.buyProperty = function(property) {   // refers to property object
+
+    // make payment, update net worth, property value:
     this.sendMoney(property.propertyValue);
     this.valueFromOwnedProperties += property.propertyValue;
     property.owner = activePlayer;
     document.getElementById(property.spaceID).classList.add(this.playerClassName);
+
+    // send log-message/console.log() confirming purchase:
     console.log(this.name + " just bought " + property.nameForTextUse + " for " + property.propertyValue);
     appendChatMessage(this.name + " just bought " + property.nameForTextUse + " for $" + parseCashValue(property.propertyValue));
-    this.propertiesOwned.push(property);
-    if (property.propertyGroup === "railroad") {
-      this.railRoadsOwned++;
-    }
+
+    // update player's property list:
+    this.addPropertyToPropertiesOwned(property);
+
+    // add to array of readable property names:
+    this.propertiesOwnedNames.push(property.nameForTextUse);
+
+    // update contol panel:
     updateControlPanel();
   }
 
@@ -145,6 +171,27 @@ function Player(name, cash) {
     this.valueFromOwnedProperties += dollarAmount;
   }
 
+  // check to see (after every purchase, every trade, every mortgage)
+  // ... if player has a monopoly they can build houses on:
+  this.checkMonopolyStatuses = function() {
+    let statuses = [];
+    let props = this.propertiesOwned;
+    for (let prop in props) {
+      if (props[prop][0] === props[prop][1]) {
+        statuses.push(prop);
+      }
+    }
+  }
+
+  this.addPropertyToPropertiesOwned = function(property) {
+    let propertyGroup = property.propertyGroup;
+    this.propertiesOwned[propertyGroup][0]++;
+  }
+
+  this.removePropertyFromPropertiesOwned = function(property) {
+    let propertyGroup = property.propertyGroup;
+    this.propertiesOwned[propertyGroup][0]--;
+  }
 
   /*    Get and Set Methods   */
   this.setPlayerTileCoordinate = function(positiveInteger) {
@@ -214,40 +261,7 @@ function enactTileLocationEvents() {
   for (let event of events) {
     event();
   }
-  document.getElementById("rollButton").disabled = false;
-  document.getElementById("tradeButton").disabled = false;
-  document.getElementById("mortgageButton").disabled = false;
-  document.getElementById("buyHousesButton").disabled = false;
-}
-
-// update control panel for both players:
-function updateControlPanel() {
-  document.getElementById("playerOneCash").textContent = "$" +
-    parseCashValue(playerOne.cash);
-  document.getElementById("playerTwoCash").textContent = "$" +
-    parseCashValue(playerTwo.cash);
-  document.getElementById("playerOnePropertyValue").textContent = "$" +
-    parseCashValue(playerOne.valueFromOwnedProperties);
-  document.getElementById("playerTwoPropertyValue").textContent = "$" +
-    parseCashValue(playerTwo.valueFromOwnedProperties);
-  document.getElementById("playerOneNetWorth").textContent = "$" +
-    parseCashValue(playerOne.valueFromOwnedProperties + playerOne.cash);
-  document.getElementById("playerTwoNetWorth").textContent = "$" +
-    parseCashValue(playerTwo.valueFromOwnedProperties + playerTwo.cash);
-
-  let playerOneProperties = playerOne.propertiesOwned;
-  let playerOnePropertyText = "";
-  for (let property of playerOneProperties) {
-    playerOnePropertyText += property.spaceID + ", ";
-  }
-  document.getElementById("playerOneProperties").textContent = playerOnePropertyText;
-
-  let playerTwoProperties = playerTwo.propertiesOwned;
-  let playerTwoPropertyText = "";
-  for (let property of playerTwoProperties) {
-    playerTwoPropertyText += property.spaceID + ", ";
-  }
-  document.getElementById("playerTwoProperties").textContent = playerTwoPropertyText;
+  enableButtons();
 }
 
 // return a pair of random numbers:

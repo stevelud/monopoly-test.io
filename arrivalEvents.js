@@ -12,7 +12,8 @@ board[0].arrivalEvents.push(
 // event: landing on income tax space:
 board[4].arrivalEvents.push(
   function() {
-    console.log(activePlayer.name + ", you must pay $500,000 in income tax!");
+    console.log(activePlayer.name + " just paid $500,000 in income tax!");
+    appendChatMessage(activePlayer.name + " just paid $500,000 in income tax!")
     activePlayer.sendMoney(500000);
   }
 );
@@ -62,6 +63,10 @@ for (let tile of board) {
 }
 
 
+
+// events for landing on: CHANCE and COMMUNITY CHEST
+
+
 // event: landing on "Free Parking"
 board[21].arrivalEvents.push(
   function() {
@@ -73,6 +78,16 @@ board[21].arrivalEvents.push(
 );
 
 
-
-
 // event: landing on "Go To Jail" space
+board[30].arrivalEvents.push(
+
+  // animation that sends player from "GoToJail" space
+  // to Jail GOES HERE
+
+  function() {
+    activePlayer.setPlayerTileCoordinate(10);
+    activePlayer.jailStatusTurn = 3;
+  }
+
+  // end turn here, immediately
+)
