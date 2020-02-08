@@ -1,4 +1,13 @@
 /*      main.css      */
+/*
+    Attribution for House Icon:
+
+    Icons made by <a href="https://www.flaticon.com/authors/dave-gandy"
+    title="Dave Gandy">Dave Gandy</a> from <a href="https://www.flaticon.com/"
+    title="Flaticon"> www.flaticon.com</a>
+
+*/
+
 
 * { margin: 0; padding: 0; }
 
@@ -272,55 +281,6 @@ main {
       transform:translateX(-50px);
       font-size:2em;
     }
-
-/****   Drop Down Pane Styles:   ****/
-
-   #dropDownPane {
-     width:600px;
-     height:240px;
-     margin:auto;
-     padding:15px;
-     background-color:#85bb65;
-     border:2px solid black;
-     border-radius:10px;
-     position:absolute;
-     transform:translate(0px, -550px);
-     z-index:2;
-   }
-   #dropDownPaneContent {
-     background-color:white;
-     height:88%;
-     border-radius:10px;
-     padding:15px;
-   }
-   #dropDownPane button {
-     width:100px;
-     height:30px;
-     margin:5px;
-   }
-   .dropDown {
-     animation-name:dropDownDiv;
-     animation-duration:.6s;
-     animation-timing-function:ease-in;
-     animation-iteration-count:1;
-     animation-fill-mode:forwards;
-   }
-   @keyframes dropDownDiv {
-     from { transform:translate(325px, -550px); }
-     to { transform:translate(325px, 150px); }
-   }
-   .goUp {
-     animation-name:goUpDiv;
-     animation-duration:.6s;
-     animation-timing-function: ease-in;
-     animation-iteration-count:1;
-     animation-fill-mode:forwards;
-   }
-   @keyframes goUpDiv {
-     from { transform:translate(325px, 150px); }
-     to { transform:translate(325px, -550px); }
-   }
-
 
 /****   Displayed card styles:   ****/
 

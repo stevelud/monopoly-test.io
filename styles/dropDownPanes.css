@@ -1,0 +1,59 @@
+/* dropDownPanes.css */
+/****   Drop Down Pane Styles:   ****/
+
+   #dropDownPane {
+     min-width:600px;
+     min-height:260px;
+     margin:auto;
+     padding:15px;
+     background-color:#85bb65;
+     /*
+     border:2px solid black;
+     border-radius:10px;
+     */
+     border-right: 10px solid #989898;
+     border-bottom: 10px solid darkgray;
+     border-left: 10px solid silver;
+     border-top: 10px solid silver;
+     position:absolute;
+     transform:translate(0px, -550px);
+     z-index:2;
+   }
+   #dropDownPaneContent {
+     background-color:white;
+     min-height:230px;
+     border-radius:0;
+     padding:15px;
+     display:grid;
+     grid-template-columns:100%;
+     grid-template-rows:20% 60% 20%;
+     grid-template-areas:"paneHeader" "paneContent" "paneButtons";
+   }
+   #dropDownPane button {
+     min-width:100px;
+     padding:6px;
+     min-height:30px;
+     margin:5px;
+   }
+   .dropDown {
+     animation-name:dropDownDiv;
+     animation-duration:.6s;
+     animation-timing-function:ease-in;
+     animation-iteration-count:1;
+     animation-fill-mode:forwards;
+   }
+   @keyframes dropDownDiv {
+     from { transform:translate(325px, -550px); }
+     to { transform:translate(325px, 150px); }
+   }
+   .goUp {
+     animation-name:goUpDiv;
+     animation-duration:.6s;
+     animation-timing-function: ease-in;
+     animation-iteration-count:1;
+     animation-fill-mode:forwards;
+   }
+   @keyframes goUpDiv {
+     from { transform:translate(325px, 150px); }
+     to { transform:translate(325px, -550px); }
+   }
